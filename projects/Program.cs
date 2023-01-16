@@ -2,9 +2,9 @@
 
 namespace hello;
 class RockPaperScissors
-{
+{ 
     int computerWins = 0;
-    int playersWins = 0;
+    public int playersWins = 0;
     string[] moves = { "rock", "paper", "scissors" };
     void Game()
     {
@@ -44,12 +44,14 @@ class RockPaperScissors
     }
     public RockPaperScissors()
     {
+        int playersWins = 0;
         Game();
         
     }
 }
 class  NumGuessingGame
 {
+    public int playerCount = 0;
     void Game(int range, int guesses)
     {
         Console.WriteLine($"You have {guesses} guesses");
@@ -63,6 +65,7 @@ class  NumGuessingGame
             if (playerInput == computersChoice)
             {
                 Console.WriteLine("congratulations! You win.");
+                playerCount++;
                 break;
             }
             else if (playerInput > computersChoice)
@@ -124,7 +127,7 @@ class  NumGuessingGame
 class QuizzGame
 {
     char playerInput;
-    int score = 0;
+    public int score = 0;
     string[] questions = new string[5] {
         "1. What does “www” stand for in a website browser?",
         "2. How long is an Olympic swimming pool (in meters)?",
@@ -183,6 +186,9 @@ class program
     }
     static void Main(string[] args)
     {
+        int playersCount = 0;
+        Console.BackgroundColor = ConsoleColor.Cyan;
+        Console.ForegroundColor = ConsoleColor.Black;
         Console.WriteLine("Please sign in.");
         Console.WriteLine("Enter your first name: ");
         string firstName = Console.ReadLine();
@@ -190,32 +196,43 @@ class program
         string lastName = Console.ReadLine();
         Console.WriteLine("Enter your username: ");
         string userName = Console.ReadLine();
+        while (playersCount <= 3)
+        {
+            MainMenu(userName);
 
-        MainMenu(userName);
+            int playersChoice = Convert.ToInt32(Console.ReadLine());
 
-        int playersChoice = Convert.ToInt32(Console.ReadLine());
-
-        if (playersChoice == 1)
-        {
-            RockPaperScissors obj = new RockPaperScissors();
-        }
-        else if (playersChoice == 2)
-        {
-            NumGuessingGame obj1 = new NumGuessingGame();
-        }
-        else if (playersChoice == 3)
-        {
-            QuizzGame obj2 = new QuizzGame();
-        }
-        else if (playersChoice == 4)
-        {
-            Console.WriteLine($"Your name is: {firstName}");
-            Console.WriteLine($"Your last name is: {lastName}");
-            Console.WriteLine($"Your username is: {userName}");
-        }
-        else
-        {
-            Console.Clear();
+            if (playersChoice == 1)
+            {
+                Console.BackgroundColor = ConsoleColor.Blue;
+                RockPaperScissors obj = new RockPaperScissors();
+                playersCount = obj.playersWins;
+                
+            }
+            else if (playersChoice == 2)
+            {
+                Console.BackgroundColor = ConsoleColor.Green;
+                NumGuessingGame obj1 = new NumGuessingGame();
+                playersCount = obj1.playerCount;
+            }
+            else if (playersChoice == 3)
+            {
+                Console.BackgroundColor = ConsoleColor.Yellow;
+                QuizzGame obj2 = new QuizzGame();
+                playersCount = obj2.score;
+            }
+            else if (playersChoice == 4)
+            {
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.WriteLine($"Your name is: {firstName}");
+                Console.WriteLine($"Your last name is: {lastName}");
+                Console.WriteLine($"Your username is: {userName}");
+            }
+            else
+            {
+                Console.Clear();
+            }
+            Console.WriteLine($"Your score is: {playersCount}");
         }
     }
 }
