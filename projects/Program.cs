@@ -1,46 +1,60 @@
 ﻿using System;
-
 namespace hello;
 class RockPaperScissors
-{ 
+{
     int computerWins = 0;
-    public int playersWins = 0;
+    int playersWins = 0;
     string[] moves = { "rock", "paper", "scissors" };
     void Game()
     {
         while (computerWins != 3 && playersWins != 3)
         {
-            Console.Write("Please enter the character you want from('r','s','p'): ");
+            Console.Write("Please enter your move ('r' for rock, 'p' for paper, 's' for scissors): ");
             string playersInput = Console.ReadLine();
             if (playersInput != "r" && playersInput != "s" && playersInput != "p")
             {
-                Console.WriteLine("wrong input! please enter the correct character! ");
+                Console.WriteLine("Invalid input! Please enter a valid move.");
                 continue;
             }
-            string playerMove = moves[0];
-            Console.WriteLine($"Player's move is: {playerMove}");
-            var random = new Random();
-            int randomNumber = random.Next(0, 3);
-            string computersMove = moves[randomNumber];
-            Console.WriteLine($"computer's move: {computersMove}");
-            if (playersInput == "r" && computersMove == "scissors" || playersInput == "r" && computersMove == "paper" || playersInput == "r" && computersMove == "rock")
+            int playersMoveIndex = -1;
+            if (playersInput == "r")
             {
-                Console.WriteLine("player wins!");
-                playersWins++;
+                playersMoveIndex = 0;
             }
-            else if (playersInput == computersMove)
+            else if (playersInput == "p")
+            {
+                playersMoveIndex = 1;
+            }
+            else if (playersInput == "s")
+            {
+                playersMoveIndex = 2;
+            }
+            string playersMove = moves[playersMoveIndex];
+            Console.WriteLine($"Player's move is: {playersMove}");
+            var random = new Random();
+            int computersMoveIndex = random.Next(0, 3);
+            string computersMove = moves[computersMoveIndex];
+            Console.WriteLine($"Computer's move is: {computersMove}");
+            if (playersMove == computersMove)
             {
                 Console.WriteLine("It's a tie!");
             }
+            else if (playersMove == "rock" && computersMove == "scissors" ||
+                     playersMove == "paper" && computersMove == "rock" ||
+                     playersMove == "scissors" && computersMove == "paper")
+            {
+                Console.WriteLine("Player wins!");
+                playersWins++;
+            }
             else
             {
-                Console.WriteLine("computer wins!");
+                Console.WriteLine("Computer wins!");
                 computerWins++;
             }
-            Console.WriteLine($"computer's score: {computerWins}");
-            Console.WriteLine($"player's score: {playersWins}");
+            Console.WriteLine($"Computer's score: {computerWins}");
+            Console.WriteLine($"Player's score: {playersWins}");
         }
-        Console.WriteLine(playersWins == 3 ? "player wins!" : "Computer wins!");
+        Console.WriteLine(playersWins == 3 ? "Player wins the game!" : "Computer wins the game!");
     }
     public RockPaperScissors()
     {
@@ -186,6 +200,7 @@ class program
     }
     static void Main(string[] args)
     {
+        
         int playersCount = 0;
         Console.BackgroundColor = ConsoleColor.Cyan;
         Console.ForegroundColor = ConsoleColor.Black;
@@ -206,7 +221,7 @@ class program
             {
                 Console.BackgroundColor = ConsoleColor.Blue;
                 RockPaperScissors obj = new RockPaperScissors();
-                playersCount = obj.playersWins;
+                
                 
             }
             else if (playersChoice == 2)
