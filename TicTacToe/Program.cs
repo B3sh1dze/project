@@ -168,8 +168,7 @@ class TicTacToe
     }
     public TicTacToe()
     {
-        Console.Write("Please enter number how far you want to play: ");
-        gameEdge = Convert.ToInt32(Console.ReadLine());
+       
         while (running)
         {
             playersMove(playerInput, array);
