@@ -2,14 +2,14 @@
 using System.Security.Cryptography;
 class TicTacToe
 {
-    public char[] array = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' };
-    public int computersMove;
-    public int playerInput;
-    public int playersInput;
-    public int gameEdge;
-    public int count = 0;
-    public bool running = true;
-    public void drawBoard(int playerInput, int computersMove)
+    char[] array = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' };
+    int computersMove;
+    int playerInput;
+    int playersInput;
+    static public int cCount = 0;
+    static public int pCount = 0;
+    bool running = true;
+    void drawBoard(int playerInput, int computersMove)
     {
         Console.WriteLine("     |     |     ");
         Console.WriteLine($"  {array[0]}  |  {array[1]}  |  {array[2]}  ");
@@ -23,7 +23,7 @@ class TicTacToe
         Console.WriteLine($"  {array[6]}  |  {array[7]}  |  {array[8]}  ");
         Console.WriteLine("     |     |     ");
     }
-    public void playersMove(int playerInput, char[] array)
+    void playersMove(int playerInput, char[] array)
     {
         while (true)
         {
@@ -41,7 +41,7 @@ class TicTacToe
             }
         }
     }
-    public void ComputersMove(int computersMove, char[] array)
+    void ComputersMove(int computersMove, char[] array)
     {
         Random randNum = new Random();
         computersMove = randNum.Next(1, 9);
@@ -56,7 +56,7 @@ class TicTacToe
             }
         }
     }
-    public bool checkWinner(int computersMove, int playersInput, char[] array)
+    bool checkWinner(int computersMove, int playersInput, char[] array)
     {
         
         if (array[0] != ' ' && array[0] == array[1] && array[1] == array[2])
@@ -64,10 +64,12 @@ class TicTacToe
             if (array[0] == 'X')
             {
                 Console.WriteLine("Player wins");
+                pCount++;
             }
             else
             {
                 Console.WriteLine("computer wins");
+                cCount++;
             }
         }
         else if (array[3] != ' ' && array[3] == array[4] && array[4] == array[5])
@@ -75,10 +77,12 @@ class TicTacToe
             if (array[3] == 'X')
             {
                 Console.WriteLine("Player wins");
+                pCount++;
             }
             else
             {
                 Console.WriteLine("computer wins");
+                cCount++;
             }
         }
         else if (array[6] != ' ' && array[6] == array[7] && array[7] == array[8])
@@ -86,10 +90,12 @@ class TicTacToe
             if (array[6] == 'X')
             {
                 Console.WriteLine("Player wins");
+                pCount++;
             }
             else
             {
                 Console.WriteLine("computer wins");
+                cCount++;
             }
         }
         else if (array[0] != ' ' && array[0] == array[3] && array[3] == array[6])
@@ -97,10 +103,12 @@ class TicTacToe
             if (array[0] == 'X')
             {
                 Console.WriteLine("Player wins");
+                pCount++;
             }
             else
             {
                 Console.WriteLine("computer wins");
+                cCount++;
             }
         }
         else if (array[1] != ' ' && array[1] == array[4] && array[4] == array[7])
@@ -108,10 +116,12 @@ class TicTacToe
             if (array[1] == 'X')
             {
                 Console.WriteLine("Player wins");
+                pCount++;
             }
             else
             {
                 Console.WriteLine("computer wins");
+                cCount++;
             }
         }
         else if (array[2] != ' ' && array[2] == array[5] && array[5] == array[8])
@@ -119,10 +129,12 @@ class TicTacToe
             if (array[2] == 'X')
             {
                 Console.WriteLine("Player wins");
+                pCount++;
             }
             else
             {
                 Console.WriteLine("computer wins");
+                cCount++;
             }
         }
         else if (array[0] != ' ' && array[0] == array[4] && array[4] == array[8])
@@ -130,10 +142,12 @@ class TicTacToe
             if (array[0] == 'X')
             {
                 Console.WriteLine("Player wins");
+                pCount++;
             }
             else
             {
                 Console.WriteLine("computer wins");
+                cCount++;
             }
         }
         else if (array[2] != ' ' && array[2] == array[4] && array[4] == array[6])
@@ -141,10 +155,12 @@ class TicTacToe
             if (array[2] == 'X')
             {
                 Console.WriteLine("Player wins");
+                pCount++;
             }
             else
             {
                 Console.WriteLine("computer wins");
+                cCount++;
             }
         }
         else
@@ -154,7 +170,7 @@ class TicTacToe
         return true;
 
     }
-    public bool checkTie(char[] array)
+    bool checkTie(char[] array)
     {
         for (int i = 1; i <= 9; i++)
         {
@@ -168,33 +184,38 @@ class TicTacToe
     }
     public TicTacToe()
     {
-       
-        while (running)
+        Console.Write("Enter how far you want to play: ");
+        int edge = Convert.ToInt32(Console.ReadLine());
+        while (pCount != edge)
         {
-            playersMove(playerInput, array);
-            drawBoard(playerInput, computersMove);
-            if (checkWinner(computersMove, playersInput, array))
+            while (running)
             {
-                running = false;
-                break;
-            }
-            else if (checkTie(array))
-            {
-                running = false;
-                break;
-            }
-            Console.WriteLine("after computers move: ");
-            ComputersMove(computersMove, array);
-            drawBoard(playerInput, computersMove);
-            if (checkWinner(computersMove, playersInput, array))
-            {
-                running = false;
-                break;
-            }
-            else if (checkTie(array))
-            {
-                running = false;
-                break;
+                playersMove(playerInput, array);
+                drawBoard(playerInput, computersMove);
+                if (checkWinner(computersMove, playersInput, array))
+                {
+                    running = false;
+                    pCount++;
+                    break;
+                }
+                else if (checkTie(array))
+                {
+                    running = false;
+                    break;
+                }
+                Console.WriteLine("after computers move: ");
+                ComputersMove(computersMove, array);
+                drawBoard(playerInput, computersMove);
+                if (checkWinner(computersMove, playersInput, array))
+                {
+                    running = false;
+                    break;
+                }
+                else if (checkTie(array))
+                {
+                    running = false;
+                    break;
+                }
             }
         }
     }
@@ -202,7 +223,7 @@ class TicTacToe
     {
 
         TicTacToe obj = new TicTacToe();
-
     }
 }
+
 
