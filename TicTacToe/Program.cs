@@ -184,10 +184,6 @@ class TicTacToe
     }
     public TicTacToe()
     {
-        Console.Write("Enter how far you want to play: ");
-        int edge = Convert.ToInt32(Console.ReadLine());
-        while (pCount != edge)
-        {
             while (running)
             {
                 playersMove(playerInput, array);
@@ -217,7 +213,6 @@ class TicTacToe
                     break;
                 }
             }
-        }
     }
     static void Main(string[] args)
     {
